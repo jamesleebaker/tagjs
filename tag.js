@@ -31,7 +31,8 @@ var Tag = (function(){
       classes = selector.match(new RegExp( "\\.(" + characterEncoding + ")", "g")),
       id = selector.match(new RegExp( "#(" + characterEncoding + ")")),
       attributes = selector.match(new RegExp( "\\[" + whitespace + "*(" + characterEncoding + ")" + whitespace + "*(?:([*^$|!~]?=)" + whitespace + "*(?:(['\"])((?:\\\\.|[^\\\\])*?)\\3|(" + identifier + ")|)|)" + whitespace + "*\\]", "g"));
-
+      //thanks Sizzle!
+      
       if(!tag) {
         throw "The selector provided does not supply a valid tag";
       }
