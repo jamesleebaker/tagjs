@@ -40,3 +40,5 @@ To Do
 - [ ] Include support for being able to self-close any tag
 - [ ] Optimize for performance
 - [ ] Fix issue when passing a URL in the initial selector
+- [ ] Consider an option to render DOM fragments instead of string concatenation
+- [ ] Make asynchronous
