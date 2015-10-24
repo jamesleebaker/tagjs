@@ -32,7 +32,7 @@ var Tag = (function(){
       id = selector.match(new RegExp( "#(" + characterEncoding + ")")),
       attributes = selector.match(new RegExp( "\\[" + whitespace + "*(" + characterEncoding + ")" + whitespace + "*(?:([*^$|!~]?=)" + whitespace + "*(?:(['\"])((?:\\\\.|[^\\\\])*?)\\3|(" + identifier + ")|)|)" + whitespace + "*\\]", "g"));
       //thanks Sizzle!
-      
+
       if(!tag) {
         throw "The selector provided does not supply a valid tag";
       }
@@ -183,7 +183,7 @@ var Tag = (function(){
   };
 
   Tag.prototype.render = function(){
-    var innerHtml = "",
+    var innerHtml = '',
       i,
       j,
       attributes = this.attributes,
