@@ -19,7 +19,7 @@ var module = Tag("div.container#site-wrapper[data-id=foo-bar]").add(
   )
 );
 
-module.render(); //produces a string of HTML
+module.render(); //produces an HTMLElement
 ```
 
 <strong>Output</strong>
