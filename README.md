@@ -12,10 +12,10 @@ You can use jQuery-style selectors (attributes, classes, and IDs only) to genera
 ```javascript
 var module = Tag("div.container#site-wrapper[data-id=foo-bar]").add(
   Tag("ul.mario-characters").add(
-    Tag("li").text("Mario"),
-    Tag("li").text("Princess Peach"),
-    Tag("li").text("Luigi").addAttrIf(hasLessPoints, "class", "hidden"),
-    Tag("li").text("Bowser").addClassIf(isEnemy, "red")
+    Tag("li").setText("Mario"),
+    Tag("li").setText("Princess Peach"),
+    Tag("li").setText("Luigi").addAttrIf(hasLessPoints, "class", "hidden"),
+    Tag("li").setText("Bowser").addClassIf(isEnemy, "red")
   )
 );
 
