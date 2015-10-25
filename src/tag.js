@@ -37,16 +37,18 @@ var Tag = (function(){
 
     attributes = tokenizeAttributes(attributes);
     classes = !classes || classes.length < 1 ? '' : classes.join(' ').replace(/\./g, '');
-    attributes['class'] = classes;
     id = !id ? undefined : id[0].replace('#', '');
-    attributes['id'] = id;
 
-    //TODO:
-    // - Concat attributes with id and classes before returning
+    if(classes) {
+      attributes['class'] = classes;
+    }
+
+    if(id) {
+      attributes['id'] = id;
+    }
+
     return {
       tag : tag[0],
-      classes : classes.split(' '),
-      id : id,
       attributes: attributes
     };
   }
@@ -69,11 +71,16 @@ var Tag = (function(){
     var container = document.createElement(tag.name),
       fragment = document.createDocumentFragment();
 
-    tag.children.forEach(function(child) {
-      fragment.appendChild(renderDOMFragment(child));
-    });
+    if(!tag.children.length) {
+      container.innerText = tag.innerText;
+    } else {
+      tag.children.forEach(function(child) {
+        fragment.appendChild(renderDOMFragment(child));
+      });
 
-    container.appendChild(fragment);
+      container.appendChild(fragment);
+    }
+
     return setElementAttributes(container, tag);
   }
 
@@ -81,8 +88,6 @@ var Tag = (function(){
     var elementTokens = parseSelector(selector);
 
     this.name = elementTokens.tag;
-    this.classes = elementTokens.classes;
-    this.id = elementTokens.id;
     this.attributes = elementTokens.attributes;
     this.innerText = '';
     this.children = [];
@@ -102,13 +107,25 @@ var Tag = (function(){
     return this;
   };
 
+  Tag.prototype.getAttr = function(attr) {
+    return this.attributes[attr];
+  };
+
+  Tag.prototype.setAttr = function(attr) {
+    if(attr) {
+      this.attributes[attr] = attr;
+    }
+
+    return this;
+  };
+
   Tag.prototype.addIf = function(condition, selector) {
     return condition
       ? this.add(selector)
       : this;
   };
 
-  Tag.prototype.text = function(text) {
+  Tag.prototype.setText = function(text) {
     this.innerText = String(text);
     return this;
   };
@@ -116,32 +133,22 @@ var Tag = (function(){
   Tag.prototype.addClass = function(className) {
     var classAttr = this.attributes['class'];
 
-    if(this.classes.indexOf(className) === -1) {
-      this.classes.push(className);
-
-      if(classAttr && classAttr.indexOf(className) === -1) {
-        this.attributes['class'] += [' ', className].join('');
-      }
+    if(classAttr.indexOf(className) === -1) {
+      this.attributes['class'] += [' ', className].join('');
     }
 
     return this;
   };
 
   Tag.prototype.removeClass = function(className) {
-    var classAttr = this.attributes['class'],
-      classIndex = this.classes.indexOf(className),
-      classAttrIndex = classAttr.indexOf(className);
+    var classes = this.attributes['class'],
+      attrIndex = classes.indexOf(className);
 
-    if(classIndex === -1 || (classAttr && classAttrIndex === -1)) {
-      return this;
+    if(attrIndex > -1) {
+      classes = classes.split(' ');
+      classes.splice(attrIndex, 1);
+      this.attributes['class'] = classes.join(' ');
     }
-
-    this.classes.splice(classIndex, 1);
-    classAttr = classAttr.replace(className, '');
-
-    this.attributes['class'] = classAttrIndex === 0
-      ? classAttr.replace(' ', '')
-      : classAttr.slice(0, classAttrIndex - 1);
 
     return this;
   };
