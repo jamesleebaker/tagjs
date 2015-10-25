@@ -200,8 +200,11 @@ var Tag = (function(){
       : this;
   };
 
-  Tag.prototype.render = function(){
+  Tag.prototype.render = function(options){
     var innerHtml = '',
+      options = options || {
+        format: 'HTMLElement'
+      },
       i,
       j,
       attributes = this.attributes,
@@ -210,7 +213,7 @@ var Tag = (function(){
       attribute,
       isSelfClosing = SELF_CLOSING_TAGS.test(this.name);
 
-    if(window && window.document) {
+    if((window && window.document) && options.format === 'HTMLElement') {
       return renderDOMFragment(this);
     }
 
