@@ -1,0 +1,5 @@
+{
+  "name"          : "tagjs",
+  "main"          : "dist/tag.js",
+  "ignore"        : ["test", "*.yml", "*.md", ".*", "karma.*", "component.json", "package.json"]
+}

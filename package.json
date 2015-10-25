@@ -1,0 +1,42 @@
+{
+  "name": "tag.js",
+  "description": "A markup generator written in JS. Can be used both server-side and client-side for creating markup. Tag.js is incredibly lightweight and fast.",
+  "url": "https://github.com/jamesleebaker/tagjs",
+  "keywords": [
+    "tagjs",
+    "view engine",
+    "pure JS"
+  ],
+  "author": "James Baker",
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start",
+    "build": "gulp build",
+    "lint": ""
+  },
+  "main": "dist/tag.js",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesleebaker/tagjs.git"
+  },
+  "files": [
+    "dist/tag.js",
+    "dist/tag-min.js",
+    "tag-min.map",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.4.2",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.14",
+    "karma-babel-preprocessor": "^5.2.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-nyan-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "phantomjs": "^1.9.18"
+  }
+}

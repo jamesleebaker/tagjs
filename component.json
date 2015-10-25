@@ -1,0 +1,14 @@
+{
+  "name"          :"tag.js",
+  "version"       : "0.0.1",
+  "description"   : "A markup generator written in JS. Can be used both server-side and client-side for creating markup. Tag.js is incredibly lightweight and fast.",
+  "keywords": [
+    "tagjs",
+    "view engine",
+    "pure JS"
+  ],
+  "repo"          : "jamesleebaker/tagjs",
+  "main"          : "dist/tag.js",
+  "scripts"       : ["dist/tag.js"],
+  "license"       : "MIT"
+}

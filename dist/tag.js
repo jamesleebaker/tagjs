@@ -1,5 +1,4 @@
 /*jslint sloppy: true, todo: true, white: true */
-
 var Tag = (function(){
   var SELF_CLOSING_TAGS = /area|base|basefont|br|hr|input|img|link|meta/,
   Tag;
@@ -23,34 +22,59 @@ var Tag = (function(){
   }
 
   function parseSelector(selector) {
-    var characterEncoding = "(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",
-      whitespace = "[\\x20\\t\\r\\n\\f]",
-      identifier = characterEncoding.replace( "w", "w#" ),
-      tag = selector.match(new RegExp( "(" + characterEncoding.replace( "w", "w*" ) + ")")),
+    var characterEncoding = '(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+',
+      whitespace = '[\\x20\\t\\r\\n\\f]',
+      identifier = characterEncoding.replace('w', 'w#'),
+      tag = selector.match(new RegExp('(' + characterEncoding.replace('w', 'w*' ) + ')')),
       //TODO: Classes RegEx needs to account for URLs and other 'periods' in the selector that aren't classes
-      classes = selector.match(new RegExp( "\\.(" + characterEncoding + ")", "g")),
-      id = selector.match(new RegExp( "#(" + characterEncoding + ")")),
+      classes = selector.match(new RegExp('\\.(' + characterEncoding + ')', 'g')),
+      id = selector.match(new RegExp( '#(' + characterEncoding + ')')),
       attributes = selector.match(new RegExp( "\\[" + whitespace + "*(" + characterEncoding + ")" + whitespace + "*(?:([*^$|!~]?=)" + whitespace + "*(?:(['\"])((?:\\\\.|[^\\\\])*?)\\3|(" + identifier + ")|)|)" + whitespace + "*\\]", "g"));
-      //thanks Sizzle!
 
-      if(!tag) {
-        throw "The selector provided does not supply a valid tag";
+    if(!tag) {
+      throw 'The selector provided does not supply a valid tag';
+    }
+
+    attributes = tokenizeAttributes(attributes);
+    classes = !classes || classes.length < 1 ? '' : classes.join(' ').replace(/\./g, '');
+    attributes['class'] = classes;
+    id = !id ? undefined : id[0].replace('#', '');
+    attributes['id'] = id;
+
+    //TODO:
+    // - Concat attributes with id and classes before returning
+    return {
+      tag : tag[0],
+      classes : classes.split(' '),
+      id : id,
+      attributes: attributes
+    };
+  }
+
+  function setElementAttributes(element, tag) {
+    var attributes = tag.attributes;
+
+    for(var attr in attributes) {
+      var value = attributes[attr];
+
+      if(value) {
+        element.setAttribute(attr, value);
       }
+    }
 
-      attributes = tokenizeAttributes(attributes);
-      classes = !classes || classes.length < 1 ? '' : classes.join(' ').replace(/\./g, '');
-      attributes["class"] = classes;
-      id = !id ? undefined : id[0].replace('#', '');
-      attributes["id"] = id;
+    return element;
+  }
 
-      //TODO:
-      // - Concat attributes with id and classes before returning
-      return {
-        tag : tag[0],
-        classes : classes.split(' '),
-        id : id,
-        attributes: attributes
-      };
+  function renderDOMFragment(tag) {
+    var container = document.createElement(tag.name),
+      fragment = document.createDocumentFragment();
+
+    tag.children.forEach(function(child) {
+      fragment.appendChild(renderDOMFragment(child));
+    });
+
+    container.appendChild(fragment);
+    return setElementAttributes(container, tag);
   }
 
   Tag = function(selector){
@@ -60,7 +84,7 @@ var Tag = (function(){
     this.classes = elementTokens.classes;
     this.id = elementTokens.id;
     this.attributes = elementTokens.attributes;
-    this.innerText = "";
+    this.innerText = '';
     this.children = [];
   };
 
@@ -79,28 +103,24 @@ var Tag = (function(){
   };
 
   Tag.prototype.addIf = function(condition, selector) {
-    if(condition) {
-      this.add(selector);
-    }
-
-    return this;
+    return condition
+      ? this.add(selector)
+      : this;
   };
 
   Tag.prototype.text = function(text) {
-    text += "";
-    this.innerText = text;
-
+    this.innerText = String(text);
     return this;
   };
 
   Tag.prototype.addClass = function(className) {
-    var classAttr = this.attributes["class"];
+    var classAttr = this.attributes['class'];
 
     if(this.classes.indexOf(className) === -1) {
       this.classes.push(className);
 
       if(classAttr && classAttr.indexOf(className) === -1) {
-        this.attributes["class"] += [" ", className].join('');
+        this.attributes['class'] += [' ', className].join('');
       }
     }
 
@@ -108,7 +128,7 @@ var Tag = (function(){
   };
 
   Tag.prototype.removeClass = function(className) {
-    var classAttr = this.attributes["class"],
+    var classAttr = this.attributes['class'],
       classIndex = this.classes.indexOf(className),
       classAttrIndex = classAttr.indexOf(className);
 
@@ -119,7 +139,7 @@ var Tag = (function(){
     this.classes.splice(classIndex, 1);
     classAttr = classAttr.replace(className, '');
 
-    this.attributes["class"] = classAttrIndex === 0
+    this.attributes['class'] = classAttrIndex === 0
       ? classAttr.replace(' ', '')
       : classAttr.slice(0, classAttrIndex - 1);
 
@@ -127,25 +147,20 @@ var Tag = (function(){
   };
 
   Tag.prototype.removeClassIf = function(condition, className) {
-    if(condition) {
-      return this.removeClass(className);
-    }
-
-    return this;
+    return condition
+      ? this.removeClass(className)
+      : this;
   };
 
   Tag.prototype.removeAttr = function(attribute) {
     delete this.attributes[attribute];
-
     return this;
   };
 
   Tag.prototype.removeAttrIf = function(condition, attribute) {
-    if(condition) {
-      return this.removeAttr(attribute);
-    }
-
-    return this;
+    return condition
+      ? this.removeAttr(attribute)
+      : this;
   };
 
   Tag.prototype.addAttr = function(attribute, value) {
@@ -167,19 +182,15 @@ var Tag = (function(){
   };
 
   Tag.prototype.addAttrIf = function(condition, attribute, value) {
-    if(condition) {
-      return this.addAttr(attribute, value);
-    }
-
-    return this;
+    return condition
+      ? this.addAttr(attribute, value)
+      : this;
   };
 
   Tag.prototype.addClassIf = function(condition, className) {
-    if(condition) {
-      return this.addClass(className);
-    }
-
-    return this;
+    return condition
+      ? this.addClass(className)
+      : this;
   };
 
   Tag.prototype.render = function(){
@@ -191,6 +202,10 @@ var Tag = (function(){
       children = this.children,
       attribute,
       isSelfClosing = SELF_CLOSING_TAGS.test(this.name);
+
+    if(window && window.document) {
+      return renderDOMFragment(this);
+    }
 
     if(attributes) {
       for (attribute in attributes) {
@@ -204,7 +219,7 @@ var Tag = (function(){
       markup.push(' />');
 
       if(children.length) {
-        throw ["Nested content was provided for the tag name: ", this.name].join('');
+        throw ['Nested content was provided for the tag name: ', this.name].join('');
       }
 
     } else {
