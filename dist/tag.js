@@ -1,6 +1,9 @@
 var Tag = (function(){
   var SELF_CLOSING_TAGS = /area|base|basefont|br|hr|input|img|link|meta/,
-  Tag;
+  Tag,
+  root = typeof self == 'object' && self.self === self && self ||
+    typeof global == 'object' && global.global === global && global ||
+    this;
 
   /**
    * Determines if an argument is of type string and has a valid length
@@ -380,11 +383,28 @@ var Tag = (function(){
     return markup.join('');
   };
 
-  return function(selector) {
+  function wrapper(selector) {
     if(!isString(selector)) {
       throw 'The selector provided does not supply a valid tag';
     }
 
     return new Tag(selector);
   };
+
+  // Support Node and simulators
+  if (typeof exports != 'undefined' && !exports.nodeType) {
+    if (typeof module != 'undefined' && !module.nodeType && module.exports) {
+      exports = module.exports = wrapper;
+    }
+    exports.Tag = wrapper;
+  } else {
+    root.Tag = wrapper;
+  }
+
+  // Support AMD
+  if (typeof define == 'function' && define.amd) {
+    define('tag', [], function() {
+      return wrapper;
+    });
+  }
 }());
