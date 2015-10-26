@@ -1,7 +1,9 @@
 [![Build Status](https://travis-ci.org/jamesleebaker/tagjs.svg?branch=master)](http://travis-ci.org/jamesleebaker/tagjs)
 
 # Tag.js
-The use of is intended to be somewhat loose to allow developers to generate markup, preferably HTML. Currently tags in HTML5 that are self-closing will close automatically, though a future option to force self-closing will be implemented.
+This library is a lightweight and compact way to create HTML Elements in JavaScript without the need of a full-fledged templating engine. This is ideal for small corner cases where developers are seeking an abstraction to write HTML inside JavaScript without the direct use of string concatenation or interpolation. 
+
+The use is intended to be somewhat loose to allow developers to generate markup, preferably HTML. Currently tags in HTML5 that are self-closing will close automatically, though a future option to force self-closing will be implemented. Technically, it is possible to generate XML content with this library, although it hasn't been fully tested.
 
 You can use jQuery-style selectors (attributes, classes, and IDs only) to generate a Tag.
 
