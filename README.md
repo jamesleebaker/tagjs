@@ -9,12 +9,12 @@ You can use jQuery-style selectors (attributes, classes, and IDs only) to genera
 
 #### Example
 ```javascript
-var module = Tag("div.container#site-wrapper[data-id=foo-bar]").add(
-  Tag("ul.mario-characters").add(
-    Tag("li").setText("Mario"),
-    Tag("li").setText("Princess Peach"),
-    Tag("li").setText("Luigi").addAttrIf(hasLessPoints, "class", "hidden"),
-    Tag("li").setText("Bowser").addClassIf(isEnemy, "red")
+var module = Tag('div.container#site-wrapper[data-id=foo-bar]').add(
+  Tag('ul.mario-characters').add(
+    Tag('li').setText('Mario'),
+    Tag('li').setText('Princess Peach'),
+    Tag('li').setText('Luigi').addAttrIf(hasLessPoints, 'class', 'hidden'),
+    Tag('li').setText('Bowser').addClassIf(isEnemy, 'red')
   )
 );
 
@@ -206,16 +206,19 @@ div.addClassIf(true, 'bar');
 <div class="foo bar"></div>
 ```
 ===
-##### `Tag.render(config)`
+##### `Tag.render([config])`
 Renders the tag and its children recursively into either a string of text or an HTMLElement composed through a DOMFragment.
 
+Optional config can be passed in with the following params:
+`** format ** : String | HTMLElement`
+
 ```javascript
-var module = Tag("div.container#site-wrapper[data-id=foo-bar]").add(
-  Tag("ul.mario-characters").add(
-    Tag("li").setText("Mario"),
-    Tag("li").setText("Princess Peach"),
-    Tag("li").setText("Luigi").addAttrIf(hasLessPoints, "class", "hidden"),
-    Tag("li").setText("Bowser").addClassIf(isEnemy, "red")
+var module = Tag('div.container#site-wrapper[data-id=foo-bar]').add(
+  Tag('ul.mario-characters').add(
+    Tag('li').setText('Mario'),
+    Tag('li').setText('Princess Peach'),
+    Tag('li').setText('Luigi').addAttrIf(hasLessPoints, 'class', 'hidden'),
+    Tag('li').setText('Bowser').addClassIf(isEnemy, 'red')
   )
 );
 
@@ -237,7 +240,6 @@ document.body.appendChild(result);
 ```
 
 ## To Do
-=====
 - [ ] Document available methods and their signatures
 - [ ] Include support for being able to self-close any tag
 - [ ] Optimize for performance
