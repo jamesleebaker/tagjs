@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jamesleebaker/tagjs.svg?branch=master)](http://travis-ci.org/jamesleebaker/tagjs)
+
 # Tag.js
 The use of is intended to be somewhat loose to allow developers to generate markup, preferably HTML. Currently tags in HTML5 that are self-closing will close automatically, though a future option to force self-closing will be implemented.
 
