@@ -210,7 +210,7 @@ div.addClassIf(true, 'bar');
 Renders the tag and its children recursively into either a string of text or an HTMLElement composed through a DOMFragment.
 
 Optional config can be passed in with the following params:
-`** format ** : String | HTMLElement`
+**`format : String | HTMLElement`**
 
 ```javascript
 var module = Tag('div.container#site-wrapper[data-id=foo-bar]').add(
