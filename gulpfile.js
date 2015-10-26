@@ -10,7 +10,7 @@ gulp.task('compress', function () {
     .pipe(rename({
       extname: '.min.js'
     }))
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'));
 });
 
