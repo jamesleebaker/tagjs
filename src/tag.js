@@ -1,4 +1,4 @@
-var Tag = (function(){
+(function(){
   var SELF_CLOSING_TAGS = /area|base|basefont|br|hr|input|img|link|meta/,
   Tag,
   root = typeof self == 'object' && self.self === self && self ||
