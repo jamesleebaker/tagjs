@@ -11,7 +11,8 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start karma.conf.js",
     "build": "gulp build",
-    "lint": ""
+    "lint": "jshint src/tag.js",
+    "docs": "jsdoc2md 'src/tag.js' > API.md"
   },
   "main": "dist/tag.js",
   "version": "0.0.1",
