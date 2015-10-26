@@ -15,7 +15,7 @@
     "docs": "jsdoc2md 'src/tag.js' > API.md"
   },
   "main": "dist/tag.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
