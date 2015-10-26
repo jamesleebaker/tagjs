@@ -1,11 +1,9 @@
 # Tag.js
-=====
 The use of is intended to be somewhat loose to allow developers to generate markup, preferably HTML. Currently tags in HTML5 that are self-closing will close automatically, though a future option to force self-closing will be implemented.
 
 You can use jQuery-style selectors (attributes, classes, and IDs only) to generate a Tag.
 
 ### Usage
-=====
 
 `Tag(selector)`
 
@@ -54,7 +52,7 @@ button.add(icon);
   <i class="checkmark"></i>
 </button>
 ```
-
+===
 ##### `Tag.getAttr(attr)`
 Returns the current value of the provided attribute
 
@@ -63,7 +61,7 @@ var div = Tag('div.foo');
 
 div.getAttr('class'); // "foo"
 ```
-
+===
 ##### `Tag.setAttr(setAttr)`
 Sets the value of the provided attribute. Unlike Tag.prototype.addAttr, this method is destructive.
 
@@ -76,18 +74,16 @@ div.setAttr('id', 'main-wrapper');
 ```html
 <div class="foo" id="wrapper"></div>
 ```
-
+===
 ##### `Tag.addIf(condition, child)`
 If the provided condition is true, add the child tag
 
 ```javascript
-
 var div = Tag('div.foo');
 
 div.addIf(true, Tag('span.child'));
-
 ```
-
+===
 ##### `Tag.setText(text)`
 Sets the innerText of the tag. Useful for elements with no children who have a text value
 ```javascript
@@ -100,7 +96,7 @@ div.setText('Hello World!');
 ```html
 <div class="foo">Hello World!</div>
 ```
-
+===
 ##### `Tag.addClass(className)`
 Add a CSS class to the tag
 
@@ -114,7 +110,7 @@ div.addClass('bar');
 ```html
 <div class="foo bar"></div>
 ```
-
+===
 ##### `Tag.removeClass(className)`
 Removes a CSS class from the tag
 
@@ -128,7 +124,7 @@ div.removeClass('foo');
 ```html
 <div></div>
 ```
-
+===
 ##### `Tag.removeClassIf(condition, className)`
 Remove the CSS class if the provided condition is true
 
@@ -142,7 +138,7 @@ div.removeClassIf(true, 'foo');
 ```html
 <div></div>
 ```
-
+===
 ##### `Tag.removeAttr(attribute)`
 Remove the provided attribute from the tag
 ```javascript
@@ -155,7 +151,7 @@ div.removeAttr('class');
 ```html
 <div id="main"></div>
 ```
-
+===
 ##### `Tag.removeAttrIf(condition, attribute)`
 Remove the provided attribute if the provided condition is true
 ```javascript
@@ -168,7 +164,7 @@ div.removeAttrIf(true, 'class');
 ```html
 <div id="main"></div>
 ```
-
+===
 ##### `Tag.addAttr(attribute, value)`
 Add an attribute to the tag
 
@@ -182,7 +178,7 @@ div.addAttr('id', 'main');
 ```html
 <div class="foo" id="main"></div>
 ```
-
+===
 ##### `Tag.addAttrIf(condition, attribute)`
 Add an attribute to the tag if the provided condition is true
 
@@ -196,7 +192,7 @@ div.addAttrIf(true, 'id', 'main');
 ```html
 <div class="foo" id="main"></div>
 ```
-
+===
 ##### `Tag.addClassIf(condition, className)`
 Adds the provided class if the provided condition is true
 ```javascript
@@ -209,7 +205,7 @@ div.addClassIf(true, 'bar');
 ```html
 <div class="foo bar"></div>
 ```
-
+===
 ##### `Tag.render(config)`
 Renders the tag and its children recursively into either a string of text or an HTMLElement composed through a DOMFragment.
 
