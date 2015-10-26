@@ -342,7 +342,7 @@
       attribute,
       isSelfClosing = SELF_CLOSING_TAGS.test(this.name);
 
-    if((window && window.document) && options.format === 'HTMLElement') {
+    if(root.document && options.format === 'HTMLElement') {
       return renderDOMFragment(this);
     }
 
