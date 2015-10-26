@@ -11,11 +11,10 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start karma.conf.js",
     "build": "gulp build",
-    "lint": "jshint src/tag.js",
-    "docs": "jsdoc2md 'src/tag.js' > API.md"
+    "lint": "jshint src/tag.js"
   },
   "main": "dist/tag.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,8 +23,7 @@
   "files": [
     "dist/tag.js",
     "dist/tag-min.js",
-    "tag-min.map",
-    "LICENSE"
+    "dist/tag-min.map"
   ],
   "devDependencies": {
     "gulp": "^3.9.0",
